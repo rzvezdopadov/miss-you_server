@@ -4,7 +4,7 @@ import { profilesProviders } from './profiles.providers';
 import { databaseProviders } from '../../core/database/database.providers';
 import { ProfileCreateDto } from './dto/profileCreate.dto';
 import { TownsArr } from '../towns/towns.types';
-import { fakeNamesWoman, fakeSurnames } from '../fake/fake.data';
+import { fakeNamesWoman } from '../fake/fake.data';
 import {
     AlcoholArr,
     ChildrensArr,
@@ -19,7 +19,6 @@ import {
     SmokeArr,
     WeightArr,
 } from '../../core/types/profile.types';
-import { getSignZodiac } from '../../core/utils/signZodiac';
 import { Sequelize } from 'sequelize';
 import sequelize from 'sequelize';
 import { Profile } from './profiles.entity';
@@ -27,61 +26,16 @@ import { TimeDate } from '../../core/utils/timedate';
 import { ProfileSetDto } from './dto/profileSet.dto';
 import { Random } from '../../core/utils/random';
 import { SYSTEM_CONST } from '../../core/constants';
+import { getForTestsProfilesCreateDto } from '../forTests/profiles';
 
 describe('ProfilesService', () => {
     let service: ProfilesService;
-    const fakeProfiles: ProfileCreateDto[] = [];
+    let fakeProfiles: ProfileCreateDto[] = [];
     let sequelizeDB: Sequelize;
     const TEST_USER_COUNT = 10;
 
     beforeAll(async () => {
-        for (let i = 0; i < TEST_USER_COUNT; i++) {
-            const dayOfBirth = Math.floor(1 + i * 2);
-            const monthOfBirth = 1 + i;
-            const profile: ProfileCreateDto = {
-                userId: `test${1000 + i}`,
-                photoMain: 0,
-                photoLinks: [],
-                rating: i * 100,
-                location: TownsArr[0],
-                name: fakeNamesWoman[i],
-                discription: `${fakeSurnames[i]} ${fakeNamesWoman[i]}`,
-                dayOfBirth: dayOfBirth,
-                monthOfBirth: monthOfBirth,
-                yearOfBirth: 1990 + i,
-                signZodiac: getSignZodiac(dayOfBirth, monthOfBirth),
-                growth: 2,
-                weight: Math.floor((i * WeightArr.length) / TEST_USER_COUNT),
-                gender: Math.floor((i * GenderArr.length) / TEST_USER_COUNT),
-                genderVapor: Math.floor(
-                    (i * GenderVaporArr.length) / TEST_USER_COUNT,
-                ),
-                education: Math.floor(
-                    (i * EducationArr.length) / TEST_USER_COUNT,
-                ),
-                fieldOfActivity: Math.floor(
-                    (i * FieldOfActivityArr.length) / TEST_USER_COUNT,
-                ),
-                maritalStatus: Math.floor(
-                    (i * MaritalStatusArr.length) / TEST_USER_COUNT,
-                ),
-                childrens: Math.floor(
-                    (i * ChildrensArr.length) / TEST_USER_COUNT,
-                ),
-                religion: Math.floor(
-                    (i * ReligionArr.length) / TEST_USER_COUNT,
-                ),
-                smoke: Math.floor((i * SmokeArr.length) / TEST_USER_COUNT),
-                alcohol: Math.floor((i * AlcoholArr.length) / TEST_USER_COUNT),
-                profit: Math.floor((i * ProfitArr.length) / TEST_USER_COUNT),
-                interests: ['programm', 'toy', 'girls'],
-                likeCharacter: [1, 3, 5],
-                dontLikeCharacter: [2, 4, 6],
-            };
-
-            fakeProfiles.push(profile);
-        }
-
+        fakeProfiles = getForTestsProfilesCreateDto();
         sequelizeDB = await databaseProviders[0].useFactory();
     });
 
