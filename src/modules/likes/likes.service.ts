@@ -81,7 +81,7 @@ export class LikesService {
         if (userId === payload.userIdSrc) return '';
 
         const record = await this.getLikeById(payload.userIdSrc, userId);
-        console.log(payload.userIdSrc, userId);
+
         if (!record?.userIdSrc) return '';
 
         await this.likesRepository.update(
