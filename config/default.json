@@ -1,0 +1,28 @@
+{
+    "SERVER": "dev",
+    "DOMAIN": "miss-you.ru",
+
+    "HTTP_PORT": 5000,
+    "HTTPS_PORT": 5443,
+    "SOCKET_PORT": 8000,
+
+    "JWT_SECRET": "wrecsxa7",
+    "JWT_SALT_PASS": 4,
+    "JWT_EXPIRATION": "7d",
+
+    "EMAIL_USER": "service.miss.you@gmail.com",
+    "EMAIL_PASSWORD": "5615615113",
+
+    "DB_USER": "postgres",
+	"DB_HOST": "localhost",
+	"DB_DATABASE": "miss-you",
+	"DB_PASSWORD": "123456789",
+	"DB_PORT": 5432,
+
+    "USER_PASSWORD_LENGTH_MIN": 8,
+    "USER_PASSWORD_LENGTH_MAX": 30,
+
+    "DEFAULT_PASS_ADMIN": "a123456789",
+    "DEFAULT_PASS_TEST_USER": "123456789",
+    "FAKE_USER_COUNT": 500
+}
