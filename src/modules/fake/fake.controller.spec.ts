@@ -10,6 +10,9 @@ import { databaseProviders } from '../../core/database/database.providers';
 import sequelize from 'sequelize';
 import { Auth } from '../auth/auth.entity';
 import { Profile } from '../profiles/profiles.entity';
+import * as config from 'config';
+
+const FAKE_USER_COUNT = config.get<number>('FAKE_USER_COUNT');
 
 describe('FakeController', () => {
     let controller: FakeController;
@@ -51,8 +54,8 @@ describe('FakeController', () => {
             },
         );
 
-        expect(answerAuth.length).toBe(500);
-        expect(answerProfiles.length).toBe(500);
+        expect(answerAuth.length).toBe(FAKE_USER_COUNT);
+        expect(answerProfiles.length).toBe(FAKE_USER_COUNT);
     });
 
     afterAll(async () => {
