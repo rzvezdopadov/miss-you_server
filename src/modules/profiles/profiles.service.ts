@@ -105,9 +105,11 @@ export class ProfilesService {
             ],
             where: {
                 [Op.and]: [
-                    {
-                        [Op.or]: userIds && userIds.length ? userIds : {},
-                    },
+                    userIds && userIds.length
+                        ? {
+                              [Op.or]: userIds,
+                          }
+                        : {},
                     { location: opt.location },
                     {
                         [Op.or]: [
@@ -181,7 +183,7 @@ export class ProfilesService {
                                   { gender: opt.genderVapor },
                               ],
                           },
-                    opt.signZodiac ? { weight: opt.signZodiac } : {},
+                    opt.signZodiac ? { signZodiac: opt.signZodiac } : {},
                     opt.weight ? { weight: opt.weight } : {},
                     opt.education ? { education: opt.education } : {},
                     opt.fieldOfActivity
