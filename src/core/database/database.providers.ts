@@ -2,11 +2,12 @@ import { Sequelize } from 'sequelize-typescript';
 
 import { databaseConfig } from './database.config';
 import * as config from 'config';
+import { IDatabaseConfigAttributes } from './database.interface';
 import { SERVER } from '../constants';
 import { Auth } from '../../modules/auth/auth.entity';
 import { Profile } from '../../modules/profiles/profiles.entity';
 import { Likes } from '../../modules/likes/likes.entity';
-import { IDatabaseConfigAttributes } from './database.interface';
+import { Messages } from '../../modules/messages/messages.entity';
 
 const server = config.get('SERVER') || SERVER.dev;
 
@@ -31,7 +32,7 @@ export const databaseProviders = [
 
             const sequelize = new Sequelize(config);
 
-            sequelize.addModels([Auth, Profile, Likes]);
+            sequelize.addModels([Auth, Profile, Likes, Messages]);
             await sequelize.sync();
 
             return sequelize;

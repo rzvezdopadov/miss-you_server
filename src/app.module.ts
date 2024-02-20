@@ -6,8 +6,6 @@ import { TownsController } from './modules/towns/towns.controller';
 import { CaptchaModule } from './modules/captcha/captcha.module';
 import { FakeModule } from './modules/fake/fake.module';
 import { LikesModule } from './modules/likes/likes.module';
-import { MessagesController } from './modules/messages/messages.controller';
-import { MessagesService } from './modules/messages/messages.service';
 import { ComplaintsService } from './modules/complaints/complaints.service';
 import { ComplaintsController } from './modules/complaints/complaints.controller';
 import { ShopController } from './modules/shop/shop.controller';
@@ -20,11 +18,11 @@ import { VisitsService } from './modules/visits/visits.service';
 import { VisitsController } from './modules/visits/visits.controller';
 import { PhotosController } from './modules/photos/photos.controller';
 import { PhotosService } from './modules/photos/photos.service';
+import { MessagesModule } from './modules/messages/messages.module';
 
 @Module({
     controllers: [
         TownsController,
-        MessagesController,
         ComplaintsController,
         ShopController,
         StickerpacksController,
@@ -33,7 +31,6 @@ import { PhotosService } from './modules/photos/photos.service';
         PhotosController,
     ],
     providers: [
-        MessagesService,
         ComplaintsService,
         ShopService,
         StickerpacksService,
@@ -48,6 +45,7 @@ import { PhotosService } from './modules/photos/photos.service';
         FakeModule,
         CaptchaModule,
         LikesModule,
+        MessagesModule,
     ],
 })
 export class AppModule {}
