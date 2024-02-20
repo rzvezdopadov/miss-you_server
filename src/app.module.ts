@@ -18,6 +18,8 @@ import { TransactionsController } from './modules/transactions/transactions.cont
 import { TransactionsService } from './modules/transactions/transactions.service';
 import { VisitsService } from './modules/visits/visits.service';
 import { VisitsController } from './modules/visits/visits.controller';
+import { PhotosController } from './modules/photos/photos.controller';
+import { PhotosService } from './modules/photos/photos.service';
 
 @Module({
     controllers: [
@@ -28,6 +30,7 @@ import { VisitsController } from './modules/visits/visits.controller';
         StickerpacksController,
         TransactionsController,
         VisitsController,
+        PhotosController,
     ],
     providers: [
         MessagesService,
@@ -36,6 +39,7 @@ import { VisitsController } from './modules/visits/visits.controller';
         StickerpacksService,
         TransactionsService,
         VisitsService,
+        PhotosService,
     ],
     imports: [
         DatabaseModule,
