@@ -27,20 +27,17 @@ export class LikesService {
             },
         });
 
-        const newRecords = records.map((value) => {
-            return {
-                userId: value.userIdSrc,
-            };
-        });
+        const newRecords = records.map((value) => ({
+            userId: value.userIdSrc,
+        }));
 
-        const profiles = await this.profilesService.findAllByFilters(
+        return await this.profilesService.findAllByFilters(
             userId,
             payload,
             newRecords,
         );
-
-        return profiles;
     }
+
     async changeLikeById(userId: string, payload: LikeSetDto) {
         if (userId === payload.userIdDst) return '';
 
@@ -60,23 +57,23 @@ export class LikesService {
             });
 
             return payload.userIdDst;
-        } else {
-            // if record already have, invert flag
-            const userIdSrcDel = !record.userIdSrcDel;
-
-            await this.likesRepository.update(
-                { userIdSrcDel: !record.userIdSrcDel },
-                {
-                    where: {
-                        userIdSrc: userId,
-                        userIdDst: payload.userIdDst,
-                    },
-                },
-            );
-
-            return userIdSrcDel ? '' : payload.userIdDst;
         }
+        // if record already have, invert flag
+        const userIdSrcDel = !record.userIdSrcDel;
+
+        await this.likesRepository.update(
+            { userIdSrcDel: !record.userIdSrcDel },
+            {
+                where: {
+                    userIdSrc: userId,
+                    userIdDst: payload.userIdDst,
+                },
+            },
+        );
+
+        return userIdSrcDel ? '' : payload.userIdDst;
     }
+
     async deleteLikeById(userId: string, payload: LikeDeleteDto) {
         if (userId === payload.userIdSrc) return '';
 
@@ -96,6 +93,7 @@ export class LikesService {
 
         return payload.userIdSrc;
     }
+
     async getLikeById(userIdSrc: string, userIdDst: string) {
         return await this.likesRepository.findOne<Likes>({
             where: { userIdSrc, userIdDst },

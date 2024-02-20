@@ -29,14 +29,16 @@ export class ProfilesService {
 
     async delete(userId: string | string[]) {
         if (Array.isArray(userId)) {
-            userId.forEach(async (value) => {
-                await this.profilesRepository.destroy({ where: { value } });
+            const userIds = userId.map((value) => ({ userId: value }));
+
+            return await this.profilesRepository.destroy({
+                where: {
+                    [Op.or]: userIds,
+                },
             });
-        } else {
-            await this.profilesRepository.destroy({ where: { userId } });
         }
 
-        return {};
+        return await this.profilesRepository.destroy({ where: { userId } });
     }
 
     async findAllUserId(): Promise<Profile[]> {

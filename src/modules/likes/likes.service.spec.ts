@@ -147,6 +147,6 @@ describe('LikesService', () => {
     });
 
     afterAll(async () => {
-        await (await databaseProviders[0].useFactory()).drop({});
+        await sequelizeDB.drop({});
     });
 });

@@ -6,6 +6,7 @@ import { AUTH_REPOSITORY } from '../../core/constants';
 import { SignUpDto } from './dto/sugnup.dto';
 import { Random } from '../../core/utils/random';
 import * as config from 'config';
+import { Op } from 'sequelize';
 
 const JWT_SALT_PASS = config.get<number>('JWT_SALT_PASS');
 const JWT_SECRET = config.get<string>('JWT_SECRET');
@@ -59,14 +60,16 @@ export class AuthService {
 
     async delete(userId: string | string[]) {
         if (Array.isArray(userId)) {
-            userId.forEach(async (value) => {
-                await this.authRepository.destroy({ where: { value } });
+            const userIds = userId.map((value) => ({ userId: value }));
+
+            return await this.authRepository.destroy({
+                where: {
+                    [Op.or]: userIds,
+                },
             });
-        } else {
-            await this.authRepository.destroy({ where: { userId } });
         }
 
-        return {};
+        return await this.authRepository.destroy({ where: { userId } });
     }
 
     async findAllUserId(): Promise<Auth[]> {
@@ -96,9 +99,7 @@ export class AuthService {
         enteredPassword: string,
         dbPassword: string,
     ): Promise<boolean> {
-        const match = await bcrypt.compare(enteredPassword, dbPassword);
-
-        return match;
+        return await bcrypt.compare(enteredPassword, dbPassword);
     }
 
     async findOneByEmail(email: string): Promise<Auth> {
