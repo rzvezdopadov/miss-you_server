@@ -1,0 +1,6 @@
+{
+    "jest.runMode": { 
+        "type": "on-save", 
+        "testFileOnly": true 
+    }
+}
