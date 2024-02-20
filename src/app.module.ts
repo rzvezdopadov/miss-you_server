@@ -20,8 +20,23 @@ import { VisitsService } from './modules/visits/visits.service';
 import { VisitsController } from './modules/visits/visits.controller';
 
 @Module({
-    controllers: [TownsController, MessagesController, ComplaintsController, ShopController, StickerpacksController, TransactionsController, VisitsController],
-    providers: [MessagesService, ComplaintsService, ShopService, StickerpacksService, TransactionsService, VisitsService],
+    controllers: [
+        TownsController,
+        MessagesController,
+        ComplaintsController,
+        ShopController,
+        StickerpacksController,
+        TransactionsController,
+        VisitsController,
+    ],
+    providers: [
+        MessagesService,
+        ComplaintsService,
+        ShopService,
+        StickerpacksService,
+        TransactionsService,
+        VisitsService,
+    ],
     imports: [
         DatabaseModule,
         AuthModule,
