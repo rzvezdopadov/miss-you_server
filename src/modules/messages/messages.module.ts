@@ -4,6 +4,7 @@ import { ProfilesService } from '../profiles/profiles.service';
 import { profilesProviders } from '../profiles/profiles.providers';
 import { MessagesController } from './messages.controller';
 import { MessagesService } from './messages.service';
+import { MessagesGateway } from '../socket/socket.gateway';
 
 @Module({
     imports: [],
@@ -12,6 +13,7 @@ import { MessagesService } from './messages.service';
         ProfilesService,
         ...messagesProviders,
         ...profilesProviders,
+        MessagesGateway,
     ],
     controllers: [MessagesController],
 })
