@@ -6,6 +6,10 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { CaptchaService } from '../../modules/captcha/captcha.service';
+import * as config from 'config';
+import { SERVER } from '../constants';
+
+const server = config.get<string>('SERVER');
 
 @Injectable()
 export class CaptchaGuard implements CanActivate {
@@ -20,6 +24,8 @@ export class CaptchaGuard implements CanActivate {
     }
 
     async validateRequest(request) {
+        if (server !== SERVER.prod) return true;
+
         const captchaExist = this.captchaService.isHaveCaptcha(
             request.body.captcha,
         );
