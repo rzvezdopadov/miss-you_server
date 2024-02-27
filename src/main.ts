@@ -22,14 +22,17 @@ async function bootstrap() {
             cert: httpsPublicCertificate,
         };
         const httpsPORT = config.get<string>('HTTPS_PORT') || 5443;
-        const app = await NestFactory.create(AppModule, { httpsOptions });
+        const app = await NestFactory.create(AppModule, {
+            httpsOptions,
+            cors: true,
+        });
 
         app.setGlobalPrefix('api/v1');
         app.useGlobalPipes(new ValidationPipe());
         await app.listen(httpsPORT);
         console.log(`Server started on the ${httpsPORT} port`);
     } else {
-        const app = await NestFactory.create(AppModule);
+        const app = await NestFactory.create(AppModule, { cors: true });
         const httpPORT = config.get<string>('HTTP_PORT') || 5000;
 
         app.setGlobalPrefix('api/v1');
