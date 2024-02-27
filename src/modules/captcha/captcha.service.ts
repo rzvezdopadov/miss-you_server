@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import * as Canvas from 'canvas';
 import * as config from 'config';
 import { SERVER } from '../../core/constants';
+import { Random } from '../../core/utils/random';
+
 Canvas.registerFont('./assets/fonts/arial.ttf', { family: 'Arial' });
 
 const server = config.get<string>('SERVER');
@@ -37,20 +39,24 @@ export class CaptchaService {
         try {
             const canvas = Canvas.createCanvas(widthCanvas, heightCanvas);
             const context = canvas.getContext('2d');
-
             const strRand = getStrRand(5 + getCoord(3));
-
-            context.fillStyle = '#000';
-            context.fillRect(0, 0, widthCanvas, heightCanvas);
-
+            // context.fillStyle = '#00000000';
+            // context.fillRect(0, 0, widthCanvas, heightCanvas);
             context.font = '24px Arial';
+            const colorRange = 80;
+            const colorMin = 254 / 2 - colorRange / 2;
+            const colorMax = 254 / 2 + colorRange / 2;
 
-            const colorRange = 150;
+            const setRandStrokeStyle = () => {
+                const getColor = () =>
+                    Random.getRandomInteger(colorMin, colorMax);
+
+                context.strokeStyle = `rgb(${getColor()}, ${getColor()}, ${getColor()})`;
+            };
 
             for (let i = 0; i < strRand.length; i++) {
-                context.strokeStyle = `rgb(${255 - colorRange + getCoord(colorRange)}, ${
-                    255 - colorRange + getCoord(colorRange)
-                }, ${255 - colorRange + getCoord(colorRange)})`;
+                setRandStrokeStyle();
+
                 context.strokeText(
                     strRand[i],
                     10 + (i * (widthCanvas - 10)) / strRand.length,
@@ -61,9 +67,7 @@ export class CaptchaService {
             context.lineWidth = 1;
 
             for (let i = 0; i < 3; i++) {
-                context.strokeStyle = `rgb(${255 - colorRange + getCoord(colorRange)}, ${
-                    255 - colorRange + getCoord(colorRange)
-                }, ${255 - colorRange + getCoord(colorRange)})`;
+                setRandStrokeStyle();
 
                 context.beginPath();
                 context.moveTo(getCoord(30), getCoord(heightCanvas));
@@ -74,7 +78,7 @@ export class CaptchaService {
                 context.stroke();
             }
 
-            const buffer = canvas.toBuffer('image/jpeg');
+            const buffer = canvas.toBuffer('image/png');
 
             captchaArr.push({
                 str: strRand,
