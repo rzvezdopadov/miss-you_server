@@ -1,5 +1,10 @@
-import { Controller, Body, Post, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import {
+    Controller,
+    Body,
+    Post,
+    UseGuards,
+    UnauthorizedException,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { DoesUserExistGuard } from '../../core/guards/doesUserExist.guard';
 import { SignUpDto } from './dto/sugnup.dto';
@@ -21,9 +26,18 @@ export class AuthController {
         content: {},
     })
     @ApiTags('auth')
-    @UseGuards(CaptchaGuard, AuthGuard('local'))
+    @UseGuards(CaptchaGuard)
     @Post('login')
     async login(@Body() loginData: LoginDto) {
+        const user = await this.authService.validateUser(
+            loginData.email,
+            loginData.password,
+        );
+
+        if (!user) {
+            throw new UnauthorizedException('Invalid user credentials');
+        }
+
         return await this.authService.login(loginData.email);
     }
 
