@@ -1,4 +1,12 @@
-import { Controller, Body, UseGuards, Get, Put, Req } from '@nestjs/common';
+import {
+    Controller,
+    Body,
+    UseGuards,
+    Get,
+    Put,
+    Req,
+    Query,
+} from '@nestjs/common';
 import { ProfilesService } from './profiles.service';
 import { ProfileFullDto } from './dto/profileFull.dto';
 import { ProfilesShortDto } from './dto/profilesShort.dto';
@@ -14,13 +22,10 @@ export class ProfilesController {
     @ApiTags('profiles')
     @UseGuards(JwtAuthGuard)
     @Get('short')
-    async getShortProfile(@Body() profilesData: ProfilesShortDto, @Req() req) {
+    async getShortProfile(@Query() filters: ProfilesShortDto, @Req() req) {
         const userId = req?.user?.userId as string;
 
-        return await this.profilesService.findAllByFilters(
-            userId,
-            profilesData,
-        );
+        return await this.profilesService.findAllByFilters(userId, filters);
     }
 
     @ApiBearerAuth()
