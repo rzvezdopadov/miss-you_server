@@ -13,10 +13,10 @@ export const TimeDate = {
         const timecodeNow = dateNow.getTime();
         return timecodeNow;
     },
-    getYearFromAge(year: number): number {
+    getYearFromAge(age: number): number {
         const date = new Date();
         const yearNow = date.getFullYear();
-        return yearNow - year;
+        return yearNow - age;
     },
     getTimedateNow(): string {
         const dateNow = new Date();
