@@ -71,8 +71,8 @@ export class SignUpDto {
         minimum: 1,
         maximum: 12,
     })
-    @Min(1, { message: `monthOfBirth must be from 1 to 12` })
-    @Max(12, { message: `monthOfBirth must be from 1 to 12` })
+    @Min(0, { message: `monthOfBirth must be from 0 to 11` })
+    @Max(11, { message: `monthOfBirth must be from 0 to 11` })
     readonly monthOfBirth: number;
 
     @ApiProperty({
