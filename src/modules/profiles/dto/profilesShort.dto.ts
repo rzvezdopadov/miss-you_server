@@ -32,6 +32,7 @@ import {
 } from '../../../core/types/profile.types';
 import { TransformData } from '../../../core/utils/transformData';
 import { TownsArr } from '../../../modules/towns/towns.types';
+import { Type } from 'class-transformer';
 
 export class ProfilesShortDto {
     @ApiProperty({
@@ -52,6 +53,7 @@ export class ProfilesShortDto {
         maximum: SYSTEM_CONST.maxAge,
     })
     @IsNotEmpty()
+    @Type(() => Number)
     @IsNumber()
     @Min(SYSTEM_CONST.minAge)
     @Max(SYSTEM_CONST.maxAge)
@@ -65,6 +67,7 @@ export class ProfilesShortDto {
         maximum: SYSTEM_CONST.maxAge,
     })
     @IsNotEmpty()
+    @Type(() => Number)
     @IsNumber()
     @Min(SYSTEM_CONST.minAge)
     @Max(SYSTEM_CONST.maxAge)
@@ -78,6 +81,7 @@ export class ProfilesShortDto {
         maximum: SYSTEM_CONST.maxGrowth,
     })
     @IsNotEmpty()
+    @Type(() => Number)
     @IsNumber()
     readonly growthStart: number;
 
@@ -89,6 +93,7 @@ export class ProfilesShortDto {
         maximum: SYSTEM_CONST.maxGrowth,
     })
     @IsNotEmpty()
+    @Type(() => Number)
     @IsNumber()
     readonly growthEnd: number;
 
@@ -99,6 +104,7 @@ export class ProfilesShortDto {
         minimum: 0,
         maximum: GenderVaporArr.length - 1,
     })
+    @Type(() => Number)
     @IsEnum(GenderVapor, {
         message: 'gender must be either all, male or female',
     })
@@ -112,6 +118,7 @@ export class ProfilesShortDto {
         maximum: 12,
     })
     @IsNotEmpty()
+    @Type(() => Number)
     @IsNumber()
     readonly signZodiac: number;
 
@@ -122,6 +129,7 @@ export class ProfilesShortDto {
         minimum: 0,
         maximum: WeightArr.length - 1,
     })
+    @Type(() => Number)
     @IsEnum(Weight, {
         message: `weight must be only from 0 to ${WeightArr.length - 1}`,
     })
@@ -134,6 +142,7 @@ export class ProfilesShortDto {
         minimum: 0,
         maximum: EducationArr.length - 1,
     })
+    @Type(() => Number)
     @IsEnum(Education, {
         message: `education must be only from 0 to ${EducationArr.length - 1}`,
     })
@@ -146,6 +155,7 @@ export class ProfilesShortDto {
         minimum: 0,
         maximum: FieldOfActivityArr.length - 1,
     })
+    @Type(() => Number)
     @IsEnum(FieldOfActivity, {
         message: `fieldOfActivity must be only from 0 to ${FieldOfActivityArr.length - 1}`,
     })
@@ -158,6 +168,7 @@ export class ProfilesShortDto {
         minimum: 0,
         maximum: MaritalStatusArr.length - 1,
     })
+    @Type(() => Number)
     @IsEnum(MaritalStatus, {
         message: `maritalStatus must be only from 0 to ${MaritalStatusArr.length - 1}`,
     })
@@ -170,6 +181,7 @@ export class ProfilesShortDto {
         minimum: 0,
         maximum: ChildrensArr.length - 1,
     })
+    @Type(() => Number)
     @IsEnum(Childrens, {
         message: `childrens must be only from 0 to ${ChildrensArr.length - 1}`,
     })
@@ -182,6 +194,7 @@ export class ProfilesShortDto {
         minimum: 0,
         maximum: ReligionArr.length - 1,
     })
+    @Type(() => Number)
     @IsEnum(Religion, {
         message: `religion must be only from 0 to ${ReligionArr.length - 1}`,
     })
@@ -194,6 +207,7 @@ export class ProfilesShortDto {
         minimum: 0,
         maximum: SmokeArr.length - 1,
     })
+    @Type(() => Number)
     @IsEnum(Smoke, {
         message: `smoke must be only from 0 to ${SmokeArr.length - 1}`,
     })
@@ -206,6 +220,7 @@ export class ProfilesShortDto {
         minimum: 0,
         maximum: AlcoholArr.length - 1,
     })
+    @Type(() => Number)
     @IsEnum(Alcohol, {
         message: `alcohol must be only from 0 to ${AlcoholArr.length - 1}`,
     })
@@ -218,6 +233,7 @@ export class ProfilesShortDto {
         minimum: 0,
         maximum: ProfitArr.length - 1,
     })
+    @Type(() => Number)
     @IsEnum(Profit, {
         message: `profit must be only from 0 to ${ProfitArr.length - 1}`,
     })
@@ -232,6 +248,7 @@ export class ProfilesShortDto {
         maximum: 2147483647,
     })
     @IsNotEmpty()
+    @Type(() => Number)
     @IsNumber()
     readonly offset: number;
 
@@ -243,6 +260,7 @@ export class ProfilesShortDto {
         maximum: 50,
     })
     @IsNotEmpty()
+    @Type(() => Number)
     @IsNumber()
     @Max(50)
     readonly limit: number;
