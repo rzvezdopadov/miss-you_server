@@ -28,7 +28,9 @@ async function bootstrap() {
         });
 
         app.setGlobalPrefix('api/v1');
-        app.useGlobalPipes(new ValidationPipe());
+        app.useGlobalPipes(
+            new ValidationPipe({ transform: true, whitelist: true }),
+        );
         await app.listen(httpsPORT);
         console.log(`Server started on the ${httpsPORT} port`);
     } else {
@@ -36,7 +38,9 @@ async function bootstrap() {
         const httpPORT = config.get<string>('HTTP_PORT') || 5000;
 
         app.setGlobalPrefix('api/v1');
-        app.useGlobalPipes(new ValidationPipe());
+        app.useGlobalPipes(
+            new ValidationPipe({ transform: true, whitelist: true }),
+        );
 
         const configDocBilder = new DocumentBuilder()
             .setTitle('Miss-you open API')
