@@ -32,7 +32,7 @@ export class ProfilesController {
     @ApiTags('profiles')
     @UseGuards(JwtAuthGuard)
     @Get('full')
-    async getFullProfiles(@Body() profilesData: ProfileFullDto, @Req() req) {
+    async getFullProfiles(@Query() profilesData: ProfileFullDto, @Req() req) {
         const userId = profilesData.userId
             ? profilesData.userId
             : (req?.user?.userId as string);
