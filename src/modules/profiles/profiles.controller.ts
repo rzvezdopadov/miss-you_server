@@ -33,9 +33,10 @@ export class ProfilesController {
     @UseGuards(JwtAuthGuard)
     @Get('full')
     async getFullProfiles(@Query() profilesData: ProfileFullDto, @Req() req) {
-        const userId = profilesData.userId
-            ? profilesData.userId
-            : (req?.user?.userId as string);
+        const userId =
+            profilesData.userId !== '0'
+                ? profilesData.userId
+                : (req?.user?.userId as string);
 
         return await this.profilesService.findOneById(userId);
     }
